@@ -1,0 +1,23 @@
+info:
+  name: delete teacher
+  type: http
+  seq: 7
+
+http:
+  method: DELETE
+  url: http://localhost:3000/teachers/{{teacherId}}
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 204", function () {
+          expect(res.status).to.equal(204);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,23 @@
+info:
+  name: remove student 2
+  type: http
+  seq: 18
+
+http:
+  method: DELETE
+  url: http://localhost:3000/courses/2/students/2
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 204", function () {
+          expect(res.status).to.equal(204);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

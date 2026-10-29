@@ -1,0 +1,6 @@
+{
+  "javascript.suggest.autoImports": true,
+  "javascript.preferences.importModuleSpecifierEnding": "js",
+  "javascript.preferences.importModuleSpecifier": "relative",
+  "javascript.updateImportsOnFileMove.enabled": "always"
+}
