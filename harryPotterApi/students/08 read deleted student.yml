@@ -1,0 +1,23 @@
+info:
+  name: read deleted student
+  type: http
+  seq: 8
+
+http:
+  method: GET
+  url: http://localhost:3000/students/{{studentId}}
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 404", function () {
+          expect(res.status).to.equal(404);
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

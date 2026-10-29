@@ -1,0 +1,27 @@
+info:
+  name: read course after remove all
+  type: http
+  seq: 20
+
+http:
+  method: GET
+  url: http://localhost:3000/courses/2
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 200", function () {
+          expect(res.status).to.equal(200);
+        });
+
+        test("course har ingen students", function () {
+          expect(res.body.students).to.be.an("array").that.is.empty;
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

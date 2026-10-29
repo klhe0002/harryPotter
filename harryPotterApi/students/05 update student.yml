@@ -1,0 +1,38 @@
+info:
+  name: update student
+  type: http
+  seq: 5
+
+http:
+  method: PUT
+  url: http://localhost:3000/students/{{studentId}}
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "name": "Neville F. Longbottom",
+        "house": "Hufflepuff"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 200", function () {
+          expect(res.status).to.equal(200);
+        });
+
+        test("returnerer den ændrede student", function () {
+          expect(res.body.name).to.equal("Neville F. Longbottom");
+          expect(res.body.house).to.equal("Hufflepuff");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
