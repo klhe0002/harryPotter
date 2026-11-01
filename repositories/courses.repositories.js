@@ -9,39 +9,18 @@ export async function getAllCourses() {
   return result.rows;
 }
 
-// course med dens teacher og students
+// se en enkelt course
 export async function getCourseById(id) {
   //vi henter coursen med det id der bliver sendt med fra controlleren ($1 = id)
   const result = await pool.query(
     "SELECT * FROM hogwarts_course.courses WHERE id = $1",
     [id],
   );
-  //vi tager den første række, hvis der ikke er nogen er course undefined
-  const course = result.rows[0];
 
-  //hvis der ikke er en course så returner undefined, så controlleren kan sende 404
-  if (!course) return undefined;
+  //noget med join her men ved ikke hvordan
 
-  //vi henter teacheren til coursen ud fra coursens fk_teachers
-  const teacher = await pool.query(
-    "SELECT * FROM hogwarts_course.teachers WHERE id = $1",
-    [course.fk_teachers],
-  );
-  //vi henter alle students på coursen ved at joine students med student_course, sorteret efter id
-  const students = await pool.query(
-    `SELECT s.* FROM hogwarts_course.students s
-     JOIN hogwarts_course.student_course sc ON sc.fk_student = s.id
-     WHERE sc.fk_course = $1
-     ORDER BY s.id`,
-    [id],
-  );
-
-  //vi lægger teacheren og listen af students ind på course objektet
-  course.teacher = teacher.rows[0];
-  course.students = students.rows;
-
-  //returner coursen med dens teacher og students
-  return course;
+  //returner coursen, hvis id ikke findes bliver det undefined og controlleren sender 404
+  return result.rows[0];
 }
 
 //opret en course

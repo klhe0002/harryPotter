@@ -22,7 +22,7 @@ students
 courses
 
 - GET /courses - get all courses
-- GET /courses/:id - get single course med teacher og students
+- GET /courses/:id - get single course
 - POST /courses - create course
 - PUT /courses/:id - update course name
 - DELETE /courses/:id - delete course
