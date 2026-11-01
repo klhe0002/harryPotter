@@ -1,7 +1,7 @@
 info:
   name: add student to course
   type: http
-  seq: 13
+  seq: 7
 
 http:
   method: POST
