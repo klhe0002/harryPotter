@@ -1,47 +1,22 @@
 import { pool } from "../db.js";
 
+// se alle houses i databasen
 export async function getAllHouses() {
-    const result = await pool.query('SELECT * FROM "hogwartsCourse".houses');
+  //vi awaiter en query der henter alle rækker fra houses tabellen
+  const result = await pool.query("SELECT * FROM hogwarts_course.houses");
 
-    return result.rows;
+  //returner alle rækkerne til controlleren
+  return result.rows;
 }
 
+//se fx. house med id 1
 export async function getHouseById(id) {
-    const result = await pool.query(
-        'SELECT * FROM "hogwartsCourse".houses WHERE id = $1',
-        [id],
-    );
+  //vi awaiter en query der henter housen med det id der bliver sendt med fra controlleren ($1 = id)
+  const result = await pool.query(
+    "SELECT * FROM hogwarts_course.houses WHERE id = $1",
+    [id],
+  );
 
-    return result.rows[0];
-}
-
-export async function createHouse(id, name, colors, founder) {
-    const result = await pool.query(
-        `INSERT INTO "hogwartsCourse".houses (id, "Name", "Colors", "Founder")
-         VALUES ($1, $2, $3, $4)
-         RETURNING *`,
-        [id, name, colors, founder],
-    );
-
-    return result.rows[0];
-}
-
-export async function updateHouse(id, name, colors, founder) {
-    const result = await pool.query(
-        `UPDATE "hogwartsCourse".houses SET "Name" = $1, "Colors" = $2, "Founder" = $3
-         WHERE id = $4
-         RETURNING *`,
-        [name, colors, founder, id],
-    );
-
-    return result.rows[0];
-}
-
-export async function deleteHouse(id) {
-    const result = await pool.query(
-        'DELETE FROM "hogwartsCourse".houses WHERE id = $1',
-        [id],
-    );
-
-    return result.rowCount;
+  //returner den første række, hvis der ikke er nogen bliver det undefined og controlleren sender 404
+  return result.rows[0];
 }

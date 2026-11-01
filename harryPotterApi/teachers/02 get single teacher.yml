@@ -15,9 +15,10 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
-        test("har id 1", function () {
+        
+        test("teacher 1 er Minerva McGonagall", function () {
           expect(res.body.id).to.equal(1);
+          expect(res.body.name).to.equal("Minerva McGonagall");
         });
 
 settings:

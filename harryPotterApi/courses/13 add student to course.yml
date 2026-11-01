@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: http://localhost:3000/courses/2/students
+  url: http://localhost:3000/courses/3/students
   headers:
     - name: Content-Type
       value: application/json
@@ -13,7 +13,7 @@ http:
     type: json
     data: |-
       {
-        "student_id": 4
+        "fk_student": 5
       }
   auth: inherit
 

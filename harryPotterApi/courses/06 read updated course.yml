@@ -15,9 +15,9 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("ændringen er gemt", function () {
-          expect(res.body.name).to.equal("Advanced Herbology");
+          expect(res.body.name).to.equal("Advanced Astronomy");
         });
 
 settings:

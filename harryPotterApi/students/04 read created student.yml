@@ -15,9 +15,11 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("kan finde den oprettede student", function () {
           expect(res.body.name).to.equal("Neville Longbottom");
+          expect(res.body.year).to.equal(1);
+          expect(res.body.fk_houses).to.equal(1);
         });
 
 settings:

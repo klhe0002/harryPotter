@@ -13,7 +13,7 @@ http:
     type: json
     data: |-
       {
-        "name": "Advanced Herbology"
+        "name": "Advanced Astronomy"
       }
   auth: inherit
 
@@ -24,9 +24,9 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("navnet er ændret", function () {
-          expect(res.body.name).to.equal("Advanced Herbology");
+          expect(res.body.name).to.equal("Advanced Astronomy");
         });
 
 settings:

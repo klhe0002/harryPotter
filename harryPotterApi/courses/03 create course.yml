@@ -13,7 +13,8 @@ http:
     type: json
     data: |-
       {
-        "name": "Herbology"
+        "name": "Astronomy",
+        "fk_teachers": 1
       }
   auth: inherit
 
@@ -27,10 +28,10 @@ runtime:
         test("status er 201", function () {
           expect(res.status).to.equal(201);
         });
-
+        
         test("returnerer det nye course med id", function () {
           expect(res.body.id).to.be.a("number");
-          expect(res.body.name).to.equal("Herbology");
+          expect(res.body.name).to.equal("Astronomy");
         });
 
 settings:
