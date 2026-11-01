@@ -8,7 +8,7 @@ const courseRouter = express.Router();
 //get courses
 courseRouter.get("/", coursesController.getAllCourses);
 
-//get single course (med teacher og students)
+//get single course
 courseRouter.get("/:id", coursesController.getCourseById);
 
 //create course
