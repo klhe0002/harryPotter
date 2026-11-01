@@ -1,10 +1,10 @@
 info:
-  name: read deleted course
+  name: delete course
   type: http
-  seq: 8
+  seq: 5
 
 http:
-  method: GET
+  method: DELETE
   url: http://localhost:3000/courses/{{courseId}}
   auth: inherit
 
@@ -12,8 +12,8 @@ runtime:
   scripts:
     - type: tests
       code: |-
-        test("status er 404", function () {
-          expect(res.status).to.equal(404);
+        test("status er 204", function () {
+          expect(res.status).to.equal(204);
         });
 
 settings:
