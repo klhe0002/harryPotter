@@ -1,11 +1,11 @@
 info:
-  name: remove student 2
+  name: remove student 3
   type: http
   seq: 18
 
 http:
   method: DELETE
-  url: http://localhost:3000/courses/2/students/2
+  url: http://localhost:3000/courses/3/students/3
   auth: inherit
 
 runtime:

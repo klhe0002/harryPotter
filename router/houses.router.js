@@ -6,16 +6,9 @@ const houseRouter = express.Router();
 
 /////// houses ///////
 //get houses
-app.get("/", housesControllers.getAllHouses);
+houseRouter.get("/", housesController.getAllHouses);
 
 //get single house
-app.get("/:id", housesControllers.getHouseById);
+houseRouter.get("/:id", housesController.getHouseById);
 
-//create house
-app.post("/", housesControllers.createHouse);
-
-//update house
-app.put("/:id", housesControllers.updateHouse);
-
-//delete house
-app.delete("/:id", housesControllers.deleteHouse);
+export default houseRouter;

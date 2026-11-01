@@ -15,9 +15,10 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("kan finde den oprettede teacher", function () {
           expect(res.body.name).to.equal("Remus Lupin");
+          expect(res.body.fk_houses).to.equal(1);
         });
 
 settings:

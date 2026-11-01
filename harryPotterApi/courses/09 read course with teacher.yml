@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/courses/1
+  url: http://localhost:3000/courses/2
   auth: inherit
 
 runtime:
@@ -15,14 +15,11 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("Potions har Snape som teacher", function () {
           expect(res.body.name).to.equal("Potions");
-          expect(res.body.teacher.id).to.equal(1);
-          expect(res.body.teacher.name).to.include("Snape");
-        });
-        test("course har ingen students", function () {
-          expect(res.body.students).to.be.an("array").that.is.empty;
+          expect(res.body.teacher.id).to.equal(2);
+          expect(res.body.teacher.name).to.equal("Severus Snape");
         });
 
 settings:

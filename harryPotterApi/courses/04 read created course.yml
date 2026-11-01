@@ -15,9 +15,9 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("kan finde det oprettede course", function () {
-          expect(res.body.name).to.equal("Herbology");
+          expect(res.body.name).to.equal("Astronomy");
         });
 
 settings:

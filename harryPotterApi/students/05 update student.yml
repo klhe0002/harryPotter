@@ -14,7 +14,8 @@ http:
     data: |-
       {
         "name": "Neville F. Longbottom",
-        "house": "Hufflepuff"
+        "year": 2,
+        "fk_houses": 2
       }
   auth: inherit
 
@@ -25,10 +26,11 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-
+        
         test("returnerer den ændrede student", function () {
           expect(res.body.name).to.equal("Neville F. Longbottom");
-          expect(res.body.house).to.equal("Hufflepuff");
+          expect(res.body.year).to.equal(2);
+          expect(res.body.fk_houses).to.equal(2);
         });
 
 settings:

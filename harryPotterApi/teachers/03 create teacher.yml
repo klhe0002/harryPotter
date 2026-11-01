@@ -14,7 +14,7 @@ http:
     data: |-
       {
         "name": "Remus Lupin",
-        "house": "Gryffindor"
+        "fk_houses": 1
       }
   auth: inherit
 
@@ -28,10 +28,11 @@ runtime:
         test("status er 201", function () {
           expect(res.status).to.equal(201);
         });
-
+        
         test("returnerer den nye teacher med id", function () {
           expect(res.body.id).to.be.a("number");
           expect(res.body.name).to.equal("Remus Lupin");
+          expect(res.body.fk_houses).to.equal(1);
         });
 
 settings:
