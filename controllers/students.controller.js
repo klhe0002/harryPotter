@@ -1,4 +1,4 @@
-import * as studentsRepositories from "../repositories/students.repositories.js";
+import * as studentsRepositories from "../repositories/students.repository.js";
 
 // se alle students i databasen
 export async function getAllStudents(req, res) {

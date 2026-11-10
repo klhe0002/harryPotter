@@ -1,8 +1,8 @@
 import express from "express";
-import houseRouter from "./router/houses.router.js";
-import teacherRouter from "./router/teachers.router.js";
-import studentRouter from "./router/students.router.js";
-import courseRouter from "./router/courses.router.js";
+import houseRouter from "./routers/houses.router.js";
+import teacherRouter from "./routers/teachers.router.js";
+import studentRouter from "./routers/students.router.js";
+import courseRouter from "./routers/courses.router.js";
 
 const app = express();
 const port = 3000;
