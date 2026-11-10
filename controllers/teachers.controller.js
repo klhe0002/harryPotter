@@ -1,4 +1,4 @@
-import * as teachersRepositories from "../repositories/teachers.repositories.js";
+import * as teachersRepositories from "../repositories/teachers.repository.js";
 
 // se alle teachers i databasen
 export async function getAllTeachers(req, res) {

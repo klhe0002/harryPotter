@@ -1,4 +1,4 @@
-import * as housesRepositories from "../repositories/houses.repositories.js";
+import * as housesRepositories from "../repositories/houses.repository.js";
 
 // se alle houses i databasen
 export async function getAllHouses(req, res) {
