@@ -15,7 +15,7 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-        
+
         test("returnerer en liste", function () {
           expect(res.body).to.be.an("array");
         });

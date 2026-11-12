@@ -5,7 +5,7 @@ info:
 
 http:
   method: GET
-  url: http://localhost:3000/houses
+  url: http://localhost:3000/houses/7
   auth: inherit
 
 runtime:
@@ -15,7 +15,7 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-        
+
         test("returnerer de 4 houses", function () {
           expect(res.body).to.be.an("array").with.lengthOf(4);
         });
