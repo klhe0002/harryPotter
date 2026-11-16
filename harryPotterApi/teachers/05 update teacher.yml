@@ -5,7 +5,7 @@ info:
 
 http:
   method: PUT
-  url: http://localhost:3000/teachers/{{teacherId}}
+  url: http://localhost:3000/teachers/8
   headers:
     - name: Content-Type
       value: application/json
@@ -13,7 +13,7 @@ http:
     type: json
     data: |-
       {
-        "name": "Remus J. Lupin",
+        "name": "Filius Flitwick",
         "fk_houses": 2
       }
   auth: inherit
@@ -25,9 +25,9 @@ runtime:
         test("status er 200", function () {
           expect(res.status).to.equal(200);
         });
-        
+
         test("returnerer den ændrede teacher", function () {
-          expect(res.body.name).to.equal("Remus J. Lupin");
+          expect(res.body.name).to.equal("Filius Flitwick");
           expect(res.body.fk_houses).to.equal(2);
         });
 
