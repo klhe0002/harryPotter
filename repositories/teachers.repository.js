@@ -2,7 +2,8 @@ import { pool } from "../db.js";
 
 export async function getAllTeachers() {
   const result =
-    await pool.query(/*sql*/ `select teachers.id, teachers.name, houses.name as house 
+    await pool.query(/*sql*/ `select teachers.id, teachers.name, teachers.employment_start::text as employment_start
+                              , teachers.currently_active, teachers.deceased, houses.name as house 
                               from hogwarts_course.teachers
                               left join hogwarts_course.houses 
                               on teachers.fk_houses = houses.id`);
@@ -25,10 +26,17 @@ export async function getTeacherById(id) {
 
 export async function createTeacher(teacher) {
   const result = await pool.query(
-    `INSERT INTO hogwarts_course.teachers (name, fk_houses)
-     VALUES ($1, $2)
+    /*sql*/
+    `INSERT INTO hogwarts_course.teachers (name, fk_houses, employment_start, currently_active, deceased)
+     VALUES ($1, $2, $3, $4, $5)
      RETURNING *`,
-    [teacher.name, teacher.fk_houses],
+    [
+      teacher.name,
+      teacher.fk_houses,
+      teacher.employment_start,
+      teacher.currently_active,
+      teacher.deceased,
+    ],
   );
 
   return result.rows[0];
@@ -36,10 +44,18 @@ export async function createTeacher(teacher) {
 
 export async function updateTeacher(teacher) {
   const result = await pool.query(
-    /*sql*/ ` UPDATE hogwarts_course.teachers SET name = $1, fk_houses = $2
-     WHERE id = $3
+    /*sql*/ ` UPDATE hogwarts_course.teachers
+     SET name = $1, fk_houses = $2, employment_start = $3, currently_active = $4, deceased = $5
+     WHERE id = $6
      RETURNING id`,
-    [teacher.name, teacher.fk_houses, teacher.id],
+    [
+      teacher.name,
+      teacher.fk_houses,
+      teacher.employment_start,
+      teacher.currently_active,
+      teacher.deceased,
+      teacher.id,
+    ],
   );
 
   if (!result.rows[0]) return undefined;

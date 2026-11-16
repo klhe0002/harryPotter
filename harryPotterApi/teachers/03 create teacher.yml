@@ -11,24 +11,26 @@ http:
       value: application/json
   body:
     type: json
-    data: |-
+    data: |
       {
         "name": "Remus Lupin",
-        "fk_houses": 1
+        "fk_houses": 1,
+        "employment_start": "1993-09-01",
+        "currently_active": false,
+        "deceased": true
       }
   auth: inherit
 
 runtime:
   scripts:
     - type: after-response
-      code: |-
-        bru.setVar("teacherId", res.body.id);
+      code: bru.setVar("teacherId", res.body.id);
     - type: tests
       code: |-
         test("status er 201", function () {
           expect(res.status).to.equal(201);
         });
-        
+
         test("returnerer den nye teacher med id", function () {
           expect(res.body.id).to.be.a("number");
           expect(res.body.name).to.equal("Remus Lupin");

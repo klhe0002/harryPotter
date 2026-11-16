@@ -1,40 +1,69 @@
 import { pool } from "../db.js";
 
 export async function getAllCourses() {
-  const result = await pool.query("SELECT * FROM hogwarts_course.courses");
+  const result = await pool.query(/*sql*/ `SELECT courses.id,
+    courses.name,
+    teachers.name as teacher,
+    courses.type,
+    courses.level,
+    courses.school_year
+    from hogwarts_course.courses
+    left join hogwarts_course.teachers
+    on courses.fk_teachers = teachers.id
+    order by courses.id`);
 
   return result.rows;
 }
 
 export async function getCourseById(id) {
   const result = await pool.query(
-    "SELECT * FROM hogwarts_course.courses WHERE id = $1",
+    /*sql*/ `select courses.*, teachers.name as teacher
+    from hogwarts_course.courses
+    left join hogwarts_course.teachers
+    on courses.fk_teachers = teachers.id
+    where courses.id = $1`,
     [id],
   );
 
   return result.rows[0];
 }
 
-export async function createCourse(name, fk_teachers) {
+export async function createCourse(course) {
   const result = await pool.query(
-    `INSERT INTO hogwarts_course.courses (name, fk_teachers)
-     VALUES ($1, $2)
-     RETURNING *`,
-    [name, fk_teachers],
+    /*sql*/ `INSERT INTO hogwarts_course.courses (name, fk_teachers, type, level, school_year)
+     VALUES ($1, $2, $3, $4, $5)
+     RETURNING id`,
+    [
+      course.name,
+      course.fk_teachers,
+      course.type,
+      course.level,
+      course.school_year,
+    ],
   );
 
-  return result.rows[0];
+  return getCourseById(result.rows[0].id);
 }
 
-export async function updateCourseName(id, name) {
+export async function updateCourse(course) {
   const result = await pool.query(
-    `UPDATE hogwarts_course.courses SET name = $1
-     WHERE id = $2
-     RETURNING *`,
-    [name, id],
+    /*sql*/ `UPDATE hogwarts_course.courses
+     SET name = $1, fk_teachers = $2, type = $3, level = $4, school_year = $5
+     WHERE id = $6
+     RETURNING id`,
+    [
+      course.name,
+      course.fk_teachers,
+      course.type,
+      course.level,
+      course.school_year,
+      course.id,
+    ],
   );
 
-  return result.rows[0];
+  if (!result.rows[0]) return undefined;
+
+  return getCourseById(result.rows[0].id);
 }
 
 export async function deleteCourse(id) {

@@ -18,7 +18,8 @@ runtime:
         
         test("kan finde den oprettede student", function () {
           expect(res.body.name).to.equal("Neville Longbottom");
-          expect(res.body.year).to.equal(1);
+          expect(res.body.school_year).to.equal(1);
+          expect(res.body.birthday).to.equal("1980-07-30");
           expect(res.body.fk_houses).to.equal(1);
         });
 

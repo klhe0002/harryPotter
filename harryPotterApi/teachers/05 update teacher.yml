@@ -5,16 +5,19 @@ info:
 
 http:
   method: PUT
-  url: http://localhost:3000/teachers/8
+  url: http://localhost:3000/teachers/4
   headers:
     - name: Content-Type
       value: application/json
   body:
     type: json
-    data: |-
+    data: |
       {
         "name": "Filius Flitwick",
-        "fk_houses": 2
+        "fk_houses": 3,
+        "employment_start": "1960-09-01",
+        "currently_active": true,
+        "deceased": false
       }
   auth: inherit
 

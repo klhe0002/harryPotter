@@ -14,7 +14,8 @@ http:
     data: |-
       {
         "name": "Neville Longbottom",
-        "year": 1,
+        "school_year": 1,
+        "birthday": "1980-07-30",
         "fk_houses": 1
       }
   auth: inherit
@@ -33,7 +34,8 @@ runtime:
         test("returnerer den nye student med id", function () {
           expect(res.body.id).to.be.a("number");
           expect(res.body.name).to.equal("Neville Longbottom");
-          expect(res.body.year).to.equal(1);
+          expect(res.body.school_year).to.equal(1);
+          expect(res.body.birthday).to.equal("1980-07-30");
           expect(res.body.fk_houses).to.equal(1);
         });
 

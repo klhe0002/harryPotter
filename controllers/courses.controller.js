@@ -1,4 +1,5 @@
 import * as coursesRepositories from "../repositories/courses.repository.js";
+import { CreateCourseDto, UpdatedCourseDto } from "../dtos/courses.dto.js";
 
 export async function getAllCourses(req, res) {
   const allCourses = await coursesRepositories.getAllCourses();
@@ -12,25 +13,25 @@ export async function getCourseById(req, res) {
 }
 
 export async function createCourse(req, res) {
-  const { name, fk_teachers } = req.body;
-  const course = await coursesRepositories.createCourse(name, fk_teachers);
+  const newCourse = CreateCourseDto.parse(req.body);
+
+  const course = await coursesRepositories.createCourse(newCourse);
+
   res.status(201).json(course);
 }
 
-export async function updateCourseName(req, res) {
-  const { name } = req.body;
-  const course = await coursesRepositories.updateCourseName(
-    req.params.id,
-    name,
-  );
+export async function updateCourse(req, res) {
+  const input = { ...req.body, id: Number(req.params.id) };
+  const updatedCourse = UpdatedCourseDto.parse(input);
+
+  const course = await coursesRepositories.updateCourse(updatedCourse);
   if (!course) return res.status(404).json({ error: "Course not found" });
   res.status(200).json(course);
 }
 
 export async function deleteCourse(req, res) {
   const deleted = await coursesRepositories.deleteCourse(req.params.id);
-  if (deleted === 0)
-    return res.status(404).json({ error: "Course not found" });
+  if (deleted === 0) return res.status(404).json({ error: "Course not found" });
   res.sendStatus(204);
 }
 
