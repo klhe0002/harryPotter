@@ -1,19 +1,19 @@
-//global error handling middleware
-
 export default function (err, req, res, next) {
-  console.error(err.stack); // Log the error
-  console.log(err.statusCode);
+  console.error(err.stack);
 
-  let error = "Internal server error";
-  if (err.statusCode == 404) {
+  let statusCode = err.statusCode || 500;
+  let message = err.message || "Something went wrong";
+  let error = err.error || "Internal server error";
+
+  if (statusCode === 404) {
     error = "Not found";
-  } else if ((err.statusCode = 400)) {
-    error = "bad request";
+  } else if (err.statusCode === 400) {
+    error = "Bad request";
   }
 
-  res.status(err.statusCode).json({
-    message: err.message,
-    error: "Database error",
-    statusCode: err.statusCode,
+  res.status(statusCode).json({
+    statusCode: statusCode,
+    error: error,
+    message: message,
   });
 }
