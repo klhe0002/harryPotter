@@ -75,23 +75,25 @@ export async function deleteCourse(id) {
   return result.rowCount;
 }
 
-export async function updateCourseTeacher(id, fk_teachers) {
+export async function updateCourseTeacher(course) {
   const result = await pool.query(
     `UPDATE hogwarts_course.courses SET fk_teachers = $1
      WHERE id = $2
-     RETURNING *`,
-    [fk_teachers, id],
+     RETURNING id`,
+    [course.fk_teachers, course.id],
   );
 
-  return result.rows[0];
+  if (!result.rows[0]) return undefined;
+
+  return getCourseById(result.rows[0].id);
 }
 
-export async function addStudentToCourse(courseId, studentId) {
+export async function addStudentToCourse(enrollment) {
   const result = await pool.query(
     `INSERT INTO hogwarts_course.student_course (fk_student, fk_course)
      VALUES ($1, $2)
      RETURNING *`,
-    [studentId, courseId],
+    [enrollment.fk_student, enrollment.fk_course],
   );
 
   return result.rows[0];

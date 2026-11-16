@@ -24,3 +24,13 @@ export const CreateCourseDto = courseFields.refine(levelMatchesYear, levelError)
 export const UpdatedCourseDto = courseFields
   .extend({ id: z.int() })
   .refine(levelMatchesYear, levelError);
+
+export const UpdateCourseTeacherDto = z.object({
+  id: z.int(),
+  fk_teachers: z.int().nullable(),
+});
+
+export const AddStudentToCourseDto = z.object({
+  fk_course: z.int(),
+  fk_student: z.int(),
+});
