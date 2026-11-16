@@ -3,6 +3,8 @@ import houseRouter from "./routers/houses.router.js";
 import teacherRouter from "./routers/teachers.router.js";
 import studentRouter from "./routers/students.router.js";
 import courseRouter from "./routers/courses.router.js";
+import gradesRouter from "./routers/grades.router.js";
+import examsRouter from "./routers/exams.router.js";
 import errorhandler from "./errorhandling/errorhandler.js";
 
 const app = express();
@@ -21,5 +23,9 @@ app.use("/teachers", teacherRouter);
 app.use("/students", studentRouter);
 
 app.use("/courses", courseRouter);
+
+app.use("/grades", gradesRouter);
+
+app.use("/exams", examsRouter);
 
 app.use(errorhandler);

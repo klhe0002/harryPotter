@@ -1,4 +1,5 @@
 import * as studentsRepositories from "../repositories/students.repository.js";
+import { UpdatedStudentDto, CreateStudentDto } from "../dtos/students.dto.js";
 
 export async function getAllStudents(req, res) {
   const allStudents = await studentsRepositories.getAllStudents();
@@ -13,24 +14,19 @@ export async function getStudentById(req, res) {
 }
 
 export async function createStudent(req, res) {
-  const { name, year, fk_houses } = req.body;
-  const student = await studentsRepositories.createStudent(
-    name,
-    year,
-    fk_houses,
-  );
+  const newStudent = CreateStudentDto.parse(req.body);
+
+  const student = await studentsRepositories.createStudent(newStudent);
+
   res.status(201).json(student);
 }
 
 export async function updateStudent(req, res) {
-  const { name, year, fk_houses } = req.body;
-  const student = await studentsRepositories.updateStudent(
-    req.params.id,
-    name,
-    year,
-    fk_houses,
-  );
-  if (!student) return res.status(404).json({ error: "Student not found" });
+  const input = { ...req.body, id: Number(req.params.id) };
+  const newStudent = UpdatedStudentDto.parse(input);
+
+  const student = await studentsRepositories.updateStudent(newStudent);
+  if (!student) return res.status(404).json({ error: "student not found" });
   res.status(200).json(student);
 }
 

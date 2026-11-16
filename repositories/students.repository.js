@@ -1,40 +1,62 @@
 import { pool } from "../db.js";
 
 export async function getAllStudents() {
-  const result = await pool.query("SELECT * FROM hogwarts_course.students");
+  const result = await pool.query(/*sql*/ `SELECT students.id, 
+    students.name, 
+    students.school_year, 
+    houses.name as house, 
+    students.birthday
+    from hogwarts_course.students
+    left join hogwarts_course.houses 
+    on students.fk_houses = houses.id`);
 
   return result.rows;
 }
 
 export async function getStudentById(id) {
   const result = await pool.query(
-    "SELECT * FROM hogwarts_course.students WHERE id = $1",
+    /*sql*/ `select students.*, houses.name as house 
+                              from hogwarts_course.students
+                              left join hogwarts_course.houses 
+                              on students.fk_houses = houses.id
+                              where hogwarts_course.students.id = $1;`,
     [id],
   );
 
   return result.rows[0];
 }
 
-export async function createStudent(name, year, fk_houses) {
+export async function createStudent(student) {
   const result = await pool.query(
-    `INSERT INTO hogwarts_course.students (name, year, fk_houses)
-     VALUES ($1, $2, $3)
+    /*sql*/
+    `INSERT INTO hogwarts_course.students (name, school_year, fk_houses, birthday)
+     VALUES ($1, $2, $3, $4)
      RETURNING *`,
-    [name, year, fk_houses],
+    [student.name, student.school_year, student.fk_houses, student.birthday],
   );
 
   return result.rows[0];
 }
 
-export async function updateStudent(id, name, year, fk_houses) {
+export async function updateStudent(student) {
   const result = await pool.query(
-    `UPDATE hogwarts_course.students SET name = $1, year = $2, fk_houses = $3
-     WHERE id = $4
-     RETURNING *`,
-    [name, year, fk_houses, id],
+    /*sql*/ ` UPDATE hogwarts_course.students
+     SET name = $1, school_year = $2, fk_houses = $3, birthday = $4
+     WHERE id = $5
+     RETURNING id`,
+    [
+      student.name,
+      student.school_year,
+      student.fk_houses,
+      student.birthday,
+      student.id,
+    ],
   );
 
-  return result.rows[0];
+  if (!result.rows[0]) return undefined;
+
+  const updatedId = result.rows[0].id;
+  return getStudentById(updatedId);
 }
 
 export async function deleteStudent(id) {

@@ -1,6 +1,7 @@
 import * as teachersRepositories from "../repositories/teachers.repository.js";
 import HTTPError from "../errorhandling/HTTPerror.js";
-import UpdatedTeacherDto from "../dtos/updatedteacher.dto.js";
+import { UpdatedTeacherDto, CreateTeacherDto } from "../dtos/teacher.dto.js";
+
 export async function getAllTeachers(req, res) {
   const allTeachers = await teachersRepositories.getAllTeachers();
 
@@ -16,7 +17,7 @@ export async function getTeacherById(req, res) {
 }
 
 export async function createTeacher(req, res) {
-  const newTeacher = req.body;
+  const newTeacher = CreateTeacherDto.parse(req.body);
 
   const teacher = await teachersRepositories.createTeacher(newTeacher);
 

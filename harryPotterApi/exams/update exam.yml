@@ -1,0 +1,40 @@
+info:
+  name: update exam
+  type: http
+  seq: 4
+
+http:
+  method: PUT
+  url: http://localhost:3000/exams/18
+  headers:
+    - name: Content-Type
+      value: application/json
+  body:
+    type: json
+    data: |-
+      {
+        "fk_course": 1,
+        "fk_student": 1,
+        "fk_grade": "A"
+      }
+  auth: inherit
+
+runtime:
+  scripts:
+    - type: tests
+      code: |-
+        test("status er 200", function () {
+          expect(res.status).to.equal(200);
+        });
+
+        test("karakteren er ændret", function () {
+          expect(res.body.course).to.equal("Charms");
+          expect(res.body.student).to.equal("Ron Weasley");
+          expect(res.body.grade).to.equal("A");
+        });
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

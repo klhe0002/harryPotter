@@ -1,5 +1,5 @@
 info:
-  name: update course name
+  name: update course
   type: http
   seq: 4
 
@@ -13,7 +13,11 @@ http:
     type: json
     data: |-
       {
-        "name": "Advanced Astronomy"
+        "name": "Advanced Astronomy",
+        "fk_teachers": 15,
+        "type": "elective",
+        "level": "NEWT",
+        "school_year": 6
       }
   auth: inherit
 
@@ -25,8 +29,11 @@ runtime:
           expect(res.status).to.equal(200);
         });
         
-        test("navnet er ændret", function () {
+        test("course er ændret", function () {
           expect(res.body.name).to.equal("Advanced Astronomy");
+          expect(res.body.type).to.equal("elective");
+          expect(res.body.level).to.equal("NEWT");
+          expect(res.body.school_year).to.equal(6);
         });
 
 settings:
