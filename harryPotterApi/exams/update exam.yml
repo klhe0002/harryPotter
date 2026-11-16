@@ -5,7 +5,7 @@ info:
 
 http:
   method: PUT
-  url: http://localhost:3000/exams/18
+  url: http://localhost:3000/exams/{{examId}}
   headers:
     - name: Content-Type
       value: application/json
@@ -28,8 +28,8 @@ runtime:
         });
 
         test("karakteren er ændret", function () {
-          expect(res.body.course).to.equal("Charms");
-          expect(res.body.student).to.equal("Ron Weasley");
+          expect(res.body.course).to.equal("Transfiguration");
+          expect(res.body.student).to.equal("Harry Potter");
           expect(res.body.grade).to.equal("A");
         });
 

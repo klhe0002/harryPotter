@@ -1,4 +1,5 @@
 import * as housesRepositories from "../repositories/houses.repository.js";
+import HTTPError from "../errorhandling/HTTPerror.js";
 
 export async function getAllHouses(req, res) {
   const allHouses = await housesRepositories.getAllHouses();
@@ -8,6 +9,6 @@ export async function getAllHouses(req, res) {
 
 export async function getHouseById(req, res) {
   const house = await housesRepositories.getHouseById(req.params.id);
-  if (!house)
-    res.status(200).json(house);
+  if (!house) throw new HTTPError(404, "House not found");
+  res.status(200).json(house);
 }
